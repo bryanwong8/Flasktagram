@@ -1,75 +1,55 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="columns is-mobile">
-        <div class="column is-half is-offset-one-quarter">
-            <form method="POST" action="" enctype="multipart/form-data">
-                {{ form.hidden_tag() }}
-                <legend class="title is-4 text-center">Create A New Badge</legend>
-
-                <div class="field">
-                    <label class="label">{{ form.name.label }}</label>
-                    <div class="control">
-                        {% if form.name.errors %}
-                            {{ form.name(class="input is-danger") }}
-                            <div class="is-danger">
-                                {% for error in form.name.errors %}
-                                    <p class="help is-danger">{{ error }}</p>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.name(class="input") }}
-                        {% endif %}
-                    </div>
+    <div class="content-section">
+        <form method="POST" action="" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Create a Post</legend>
+                <div class="form-group">
+                    {{ form.name.label(class="form-control-label") }}
+                    {% if form.name.errors %}
+                        {{ form.name(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.name.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.name(class="form-control") }}
+                    {% endif %}
                 </div>
 
-                <div class="field">
-                    <label class="label">{{ form.caption.label }}</label>
-                    <div class="control">
-                        {% if form.caption.errors %}
-                            {{ form.caption(class="textarea is-danger") }}
-                            <div class="is-danger">
-                                {% for error in form.caption.errors %}
-                                    <p class="help is-danger">{{ error }}</p>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.caption(class="textarea") }}
-                        {% endif %}
-                    </div>
+                <div class="form-group">
+                    {{ form.caption.label(class="form-control-label") }}
+                    {% if form.caption.errors %}
+                        {{ form.caption(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.caption.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.caption(class="form-control form-control-lg") }}
+                    {% endif %}
                 </div>
 
-                <div class="field">
-                    <label class="label">{{ form.file.label }}</label>
-                    <div class="file has-name is-fullwidth">
-                        <label class="file-label">
-                            {% if form.file.errors %}
-                                {{ form.file(class="file-input") }}
-                                <div class="is-danger">
-                                    {% for error in form.file.errors %}
-                                        <p class="help is-danger">{{ error }}</p>
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                {{ form.file(class="file-input") }}
-                            {% endif %}
-                            <span class="file-cta">
-                            <span class="file-icon">
-                              <i class="fas fa-upload"></i>
-                            </span>
-                            <span class="file-label">Choose a file...</span>
-                          </span>
-                            <span class="file-name"></span>
-                        </label>
-                    </div>
+                <div class="form-group">
+                    {{ form.file.label() }}
+                    {{ form.file(class="form-control-file") }}
+                    {% if form.file.errors %}
+                        {% for error in form.file.errors %}
+                            <span class="text-danger">{{ error }}</span></br>
+                        {% endfor %}
+                    {% endif %}
                 </div>
+            </fieldset>
 
-                <div class="field horizontal-center">
-                    {{ form.submit(class="button") }}
-                </div>
-            </form>
-        </div>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
     </div>
-{% endblock %}
+{% endblock content %}
 {% block script %}
     <script type="text/javascript" src="{{ url_for('static', filename='js/file_upload.js') }}"></script>
 {% endblock %}

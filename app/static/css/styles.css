@@ -1,3 +1,7 @@
+nav {
+    border-bottom: #D0D0D0 1px solid;
+}
+
 #instagram-banner {
     width: 100px;
 }
@@ -6,6 +10,28 @@
     padding-left: 10vw;
 }
 
+#padding {
+    padding: 8rem;
+}
+
+#section {
+    background-color: #f7f7f7;
+    padding-bottom: 5rem;
+}
+
+#submit {
+    width: 13rem;
+}
+
 #user-auth {
     padding-left: 60vw;
+}
+
+.card {
+    cursor: pointer;
+    margin: 1rem;
+}
+
+.content-section {
+    padding: 5rem;
 }
