@@ -1,7 +1,7 @@
 from flask import (render_template, url_for, flash, redirect, Blueprint, request)
 from app import db
 from app.models.post import Post
-from app.posts.forms import PostForm
+from app.posts.forms import Delete, PostForm
 from app.posts.utils import add_image
 
 posts = Blueprint('posts', __name__)
@@ -11,8 +11,9 @@ posts = Blueprint('posts', __name__)
 @posts.route("/")
 def post_home():
     post_list = Post.query.all()
+    form = Delete()
 
-    return render_template("viewsPosts/PostHome.html", posts=post_list)
+    return render_template("viewsPosts/PostHome.html", posts=post_list, form=form)
 
 
 # Route to create a new post
@@ -27,11 +28,11 @@ def post_new():
         db.session.commit()
 
         return redirect(url_for("posts.post_home"))
-    return render_template("viewsPosts/PostForm.html", form=form)
+    return render_template("viewsPosts/PostForm.html", form=form, title="Create A Post")
 
 
 # Route to edit a post
-@posts.route("/posts/<int:post_id>/edit", methods=["GET", "PUT"])
+@posts.route("/posts/<int:post_id>/edit", methods=["GET", "POST"])
 def post_edit(post_id):
     form = PostForm()
     post = Post.query.get(post_id)
@@ -42,15 +43,16 @@ def post_edit(post_id):
         post.caption = form.caption.data
         post.image = new_image
         db.session.commit()
+        return redirect(url_for("posts.post_home"))
     elif request.method == "GET":
         form.name.data = post.name
-        form.caption.data = post.data
-        form.image.data = post.image
+        form.caption.data = post.caption
+        form.file.data = post.image
     return render_template("viewsPosts/PostForm.html", form=form)
 
 
 # Route to delete a post
-@posts.route("/posts/<int:post_id>/delete", methods=["DELETE"])
+@posts.route("/posts/<int:post_id>/delete", methods=["POST"])
 def post_delete(post_id):
     post = Post.query.get(post_id)
     db.session.delete(post)

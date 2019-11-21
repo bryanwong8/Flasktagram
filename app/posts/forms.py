@@ -11,4 +11,8 @@ class PostForm(FlaskForm):
         FileRequired(),
         FileAllowed(['jpg', 'jpeg', 'png'])
     ])
-    submit = SubmitField("Post")
+    submit = SubmitField("Submit")
+
+
+class Delete(FlaskForm):
+    delete = SubmitField("Delete")
