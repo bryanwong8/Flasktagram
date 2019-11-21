@@ -16,7 +16,7 @@ def post_home():
 
 
 # Route to create a new post
-@posts.route("/post/new", methods=["GET", "POST"])
+@posts.route("/posts/new", methods=["GET", "POST"])
 def post_new():
     form = PostForm()
 
@@ -25,11 +25,13 @@ def post_new():
         post = Post(name=form.name.data, caption=form.caption.data, image=image)
         db.session.add(post)
         db.session.commit()
+
+        return redirect(url_for("posts.post_home"))
     return render_template("viewsPosts/PostForm.html", form=form)
 
 
 # Route to edit a post
-@posts.route("/post/<int:post_id>/edit", methods=["GET", "PUT"])
+@posts.route("/posts/<int:post_id>/edit", methods=["GET", "PUT"])
 def post_edit(post_id):
     form = PostForm()
     post = Post.query.get(post_id)
@@ -48,7 +50,7 @@ def post_edit(post_id):
 
 
 # Route to delete a post
-@posts.route("/post/<int:post_id>/delete", methods=["DELETE"])
+@posts.route("/posts/<int:post_id>/delete", methods=["DELETE"])
 def post_delete(post_id):
     post = Post.query.get(post_id)
     db.session.delete(post)
