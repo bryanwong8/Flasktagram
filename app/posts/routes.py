@@ -23,7 +23,7 @@ def post_new():
 
     if form.validate_on_submit():
         image = add_image(form.file.data, "labs")
-        post = Post(name=form.name.data, image=image)
+        post = Post(name=form.name.data, caption=form.caption.data, image=image)
         db.session.add(post)
         db.session.commit()
 
@@ -40,11 +40,13 @@ def post_edit(post_id):
     if form.validate_on_submit():
         new_image = add_image(form.file.data, "labs")
         post.name = form.name.data
+        post.caption = form.caption.data
         post.image = new_image
         db.session.commit()
         return redirect(url_for("posts.post_home"))
     elif request.method == "GET":
         form.name.data = post.name
+        form.caption.data = post.caption
         form.file.data = post.image
     return render_template("viewsPosts/PostForm.html", form=form)
 
