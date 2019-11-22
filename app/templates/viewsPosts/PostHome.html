@@ -48,7 +48,6 @@
                             <img class="card-img-top" src="{{ post.image }}" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card-title">{{ post.name }}</h5>
-                                <p class="card-text">{{ post.caption }}</p>
                                 <a href="{{ url_for("posts.post_edit", post_id=post.id) }}"
                                    class="card-link btn btn-outline-success">Edit</a>
                                 <form class="delete_btn" method="POST"

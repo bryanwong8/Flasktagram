@@ -6,7 +6,6 @@ from wtforms.validators import DataRequired
 
 class PostForm(FlaskForm):
     name = StringField("Name of Post", validators=[DataRequired()])
-    caption = TextAreaField("Add a caption for your post!", validators=[DataRequired()])
     file = FileField('Cover Image', validators=[
         FileRequired(),
         FileAllowed(['jpg', 'jpeg', 'png'])
