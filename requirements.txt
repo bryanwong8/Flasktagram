@@ -11,7 +11,7 @@ Flask-WTF==0.14
 itsdangerous==0.24
 Jinja2==2.10.1
 jmespath==0.9.4
-Mako==1.0.7
+Mako==1.2.2
 MarkupSafe==1.0
 pipupgrade==1.5.2
 psycopg2==2.8.4
